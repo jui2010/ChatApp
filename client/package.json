@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.2.9",
     "@auth0/auth0-react": "^1.2.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -12,6 +13,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.3",
+    "graphql": "^15.4.0",
     "node-sass": "^4.12.0",
     "randomcolor": "^0.6.2",
     "react": "^16.13.1",
