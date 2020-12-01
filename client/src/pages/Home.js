@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 
 export default function Register() {
