@@ -1,7 +1,5 @@
-  
 import React, { useState } from 'react'
 import { Row, Col, Form, Button } from 'react-bootstrap'
-
 import { gql, useMutation } from '@apollo/client'
 
 const REGISTER_USER = gql`
