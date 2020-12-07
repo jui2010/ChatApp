@@ -1,7 +1,7 @@
-const {UserInputError, AuthenticationError} = require('apollo-server')
+const { UserInputError, AuthenticationError, withFilter } = require('apollo-server')
 const { Op } = require('sequelize')
 
-const {User, Message} = require('../../models')
+const { User, Message } = require('../../models')
 
 module.exports = {
 
@@ -32,7 +32,7 @@ module.exports = {
     },
     Mutation: {
 
-        sendMessage: async (parent, { to, content }, { user }) => {
+        sendMessage: async (parent, { to, content }, { user, pubsub }) => {
             try{
                 if(!user) throw new AuthenticationError('Unauthenticated')
                 
@@ -54,10 +54,23 @@ module.exports = {
                 content
             })
             
+            pubsub.publish('NEW_MESSAGE', { newMessage: message })
             return message
             } catch(err){
                 throw err
             }
+        }
+    },
+
+    Subscription: {
+        //get only those messages sent and received by authenticated user
+        newMessage: {
+            subscribe: withFilter((_, __, { pubsub, user}) => {
+                if(!user) throw new AuthenticationError('Unauthenticated')
+                return pubsub.asyncIterator(['NEW_MESSAGE'])
+            }, ( { newMessage }, _, { user }) => {
+                return newMessage.from === user.username || newMessage.to === user.username
+            })
         }
     }
 }

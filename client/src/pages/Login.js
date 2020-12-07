@@ -26,7 +26,7 @@ export default function Login(props) {
     const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
         onCompleted(data){
             dispatch({ type: 'LOGIN', payload: data.login })
-            props.history.push('/')
+            window.location.href = '/'
         },        
         onError(err){
             setErrors(err.graphQLErrors[0].extensions.errors)

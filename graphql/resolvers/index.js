@@ -1,5 +1,6 @@
 const userResolvers = require('./users')
 const messageResolvers = require('./messages')
+
 module.exports = {
     Message: {
         createdAt: (parent) => parent.createdAt.toISOString()
@@ -15,4 +16,7 @@ module.exports = {
         ...userResolvers.Mutation,
         ...messageResolvers.Mutation,
     },
+    Subscription: {
+        ...messageResolvers.Subscription,
+    }
 }
